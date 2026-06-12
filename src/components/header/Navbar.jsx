@@ -6,6 +6,8 @@ import Image from 'next/image';
 import Logo from "@/assets/Logo.png";
 import Link from 'next/link';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Button } from '../ui/button';
+import LoginButton from './LoginButton';
 
 
 const Navbar = () => {
@@ -20,7 +22,7 @@ const Navbar = () => {
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-3 w-52 p-2 shadow text-secondary-foreground">
                         {
-                            navItems.slice(0, 5).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
+                            navItems.slice(0, 7).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
                         }
                     </ul>
                 </div>
@@ -37,7 +39,12 @@ const Navbar = () => {
                     }
                 </ul>
             </div>
-            <div className="navbar-end">
+            <div className="navbar-end gap-x-2">
+                <Button className={"hidden md:inline"}>
+                    {
+                        navItems.map(item => item.name.toLowerCase() === "login" && <LoginButton key={item.id} navItem={item}></LoginButton>)
+                    }
+                </Button>
                 <ThemeToggleButton></ThemeToggleButton>
             </div>
         </div>
