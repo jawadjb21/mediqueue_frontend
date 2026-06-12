@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Home",
+        "path": "/"
+    },
+    {
+        "id": 2,
+        "name": "Tutors",
+        "path": "/tutors"
+    },
+    {
+        "id": 3,
+        "name": "Add Tutor",
+        "path": "/add-tutors"
+    },
+    {
+        "id": 4,
+        "name": "My Tutors",
+        "path": "/my-tutors"
+    },
+    {
+        "id": 5,
+        "name": "Bookings",
+        "path": "/bookings"
+    },
+    {
+        "id": 6,
+        "name": "Login",
+        "path": "/login"
+    },
+    {
+        "id": 7,
+        "name": "Register",
+        "path": "/register"
+    }
+]
