@@ -2,34 +2,42 @@ import React from 'react';
 import navItems from "@/data/navItems.json"
 import NavItems from './NavItems';
 import { ThemeToggleButton } from '../theme/ThemeToggleButton';
+import Image from 'next/image';
+import Logo from "@/assets/Logo.png";
+import Link from 'next/link';
+import { GiHamburgerMenu } from "react-icons/gi";
+
 
 const Navbar = () => {
     return (
-        <div className="navbar shadow-sm">
+        <div className="navbar shadow-sm md:px-30">
             <div className="navbar-start">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
+                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-5xl">
+                        <GiHamburgerMenu className='text-3xl'></GiHamburgerMenu>
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-3 w-52 p-2 shadow text-secondary-foreground">
                         {
-                            navItems.slice(0, 3).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
+                            navItems.slice(0, 5).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
                         }
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <div className='lg:flex justify-center items-center hidden'>
+                    <Image src={Logo} alt='Logo of the MediQueue' height={80} width={80} className='rounded-xl'></Image>
+                    <Link href={"/"}><h3 className='font-bold text-3xl text-primary lg:inline'>MediQueue</h3></Link>
+                </div>
             </div>
+            <Link href={"/"}><h3 className='font-bold text-4xl text-primary lg:hidden'>MediQueue</h3></Link>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 gap-x-4">
                     {
-                        navItems.slice(0, 3).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
+                        navItems.slice(0, 5).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
                     }
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
                 <ThemeToggleButton></ThemeToggleButton>
             </div>
         </div>
