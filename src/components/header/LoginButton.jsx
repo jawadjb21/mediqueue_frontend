@@ -1,9 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { Button } from '../ui/button';
 
 const LoginButton = ({ navItem }) => {
     return (
-        <Link
+        <Button><Link
             href={navItem.path}
             className='relative px-3 py-2 text-2xl font-bold
                 transition-all duration-300 ease-in-out
@@ -15,6 +16,7 @@ const LoginButton = ({ navItem }) => {
         >
             {navItem.name}
         </Link>
+        </Button>
     )
 };
 

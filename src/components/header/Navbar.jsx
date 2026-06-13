@@ -1,60 +1,93 @@
 import React from 'react';
-import navItems from "@/data/navItems.json"
+import navItems from "@/data/navItems.json";
 import NavItems from './NavItems';
 import { ThemeToggleButton } from '../theme/ThemeToggleButton';
 import Image from 'next/image';
 import Logo from "@/assets/Logo.png";
 import Link from 'next/link';
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Button } from '../ui/button';
-import LoginButton from './LoginButton';;
-import { headers } from "next/headers";
-import { auth } from '@/lib/auth.js';
+import LoginButton from './LoginButton';
+import LoggedInMobileDropdown from './LoggedInMobileDropdown';
+import NotLoggedIMobileDropdown from './NotLoggedIMobileDropdown';
+import ProfileDropdown from './ProfileDropdown';
 
-const Navbar = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    })
-    console.log("Headers", JSON.stringify(await headers()));
+const desktopNavItems = navItems.filter(
+    item => !["login", "register"].includes(item.name.toLowerCase())
+);
 
-    console.log(session);
+const loginItem = navItems.find(item => item.name.toLowerCase() === "login");
 
+const Navbar = async ({ user }) => {
     return (
-        <div className="navbar shadow-sm md:px-30">
-            <div className="navbar-start">
+        <div className="navbar shadow-sm px-4 md:px-10 sticky top-0 z-50 backdrop-blur-md border-b border-base-200">
+
+            {/* ── Mobile: hamburger ── */}
+            <div className="navbar-start lg:hidden">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-5xl">
-                        <GiHamburgerMenu className='text-3xl'></GiHamburgerMenu>
-                    </div>
-                    <ul
-                        tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-3 w-52 p-2 shadow text-secondary-foreground">
-                        {
-                            navItems.slice(0, 7).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
-                        }
-                    </ul>
-                </div>
-                <div className='lg:flex justify-center items-center hidden'>
-                    <Image src={Logo} alt='Logo of the MediQueue' height={80} width={80} className='rounded-xl'></Image>
-                    <Link href={"/"}><h3 className='font-bold text-3xl text-primary lg:inline'>MediQueue</h3></Link>
+                    <button
+                        tabIndex={0}
+                        aria-label="Open navigation menu"
+                        className="btn btn-ghost btn-sm rounded-lg"
+                    >
+                        <GiHamburgerMenu className="text-xl" />
+                    </button>
+                    {user
+                        ? <LoggedInMobileDropdown user={user} navItems={navItems} />
+                        : <NotLoggedIMobileDropdown navItems={navItems} />}
                 </div>
             </div>
-            <Link href={"/"}><h3 className='font-bold text-4xl text-primary lg:hidden'>MediQueue</h3></Link>
+
+            {/* ── Logo ── */}
+            <div className="navbar-start hidden lg:flex md:ml-20">
+                <Link href="/" className="flex items-center gap-2 group">
+                    <Image
+                        src={Logo}
+                        alt="MediQueue logo"
+                        height={80}
+                        width={80}
+                        className="rounded-xl transition-transform group-hover:scale-105"
+                    />
+                    <h3 className='font-bold text-3xl text-primary lg:inline'>MediQueue</h3>
+                </Link>
+            </div>
+
+            {/* ── Mobile: centered brand ── */}
+            <div className="navbar-center lg:hidden">
+                <Link href="/">
+                    <span className="font-bold text-xl text-primary tracking-tight">
+                        MediQueue
+                    </span>
+                </Link>
+            </div>
+
+            {/* ── Desktop nav links ── */}
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 gap-x-4">
-                    {
-                        navItems.slice(0, 5).map(item => <NavItems key={item.id} navItem={item}></NavItems>)
-                    }
+                <ul className="menu menu-horizontal px-1 gap-x-1">
+                    {desktopNavItems.slice(0, 5).map(item => (
+                        <NavItems key={item.id} navItem={item} />
+                    ))}
                 </ul>
             </div>
-            <div className="navbar-end gap-x-2">
-                <Button className={"hidden md:inline"}>
-                    {
-                        navItems.map(item => item.name.toLowerCase() === "login" && <LoginButton key={item.id} navItem={item}></LoginButton>)
-                    }
-                </Button>
-                <ThemeToggleButton></ThemeToggleButton>
+
+            {/* ── Right side ── */}
+            <div className="navbar-end flex items-center gap-2">
+                {user ? (
+                    <ProfileDropdown user={user} />
+                ) : (
+                    <>
+                        <div className="hidden md:block">
+                            <ThemeToggleButton />
+                        </div>
+                        {loginItem && (
+                            <LoginButton
+                                key={loginItem.id}
+                                navItem={loginItem}
+                            />
+                        )}
+                    </>
+                )}
             </div>
+
         </div>
     );
 };

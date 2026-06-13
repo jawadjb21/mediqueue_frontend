@@ -1,11 +1,19 @@
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/header/Navbar";
-import Image from "next/image";
+import { headers } from "next/headers";
+import { auth } from '@/lib/auth.js';
 
-export default function Home() {
+
+export default async function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+
+  const user = session?.user;
+  
   return (
     <>
-    <Navbar></Navbar>
-    <Footer></Footer>
+      <Navbar user={user}></Navbar>
+      <Footer></Footer>
     </>);
 }
