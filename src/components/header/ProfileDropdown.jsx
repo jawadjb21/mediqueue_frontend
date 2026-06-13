@@ -22,6 +22,7 @@ import {
     LogOut,
 } from "lucide-react";
 import getInitials from '@/lib/getInitials';
+import { chooseRandomUserPicture } from '@/lib/chooseUserRandomPicture';
 
 
 const ProfileDropdown = ({ user }) => {
@@ -46,7 +47,7 @@ const ProfileDropdown = ({ user }) => {
                     <div className="relative">
                         <Avatar className="h-8 w-8 ring-2 ring-primary/20">
                             <AvatarImage
-                                src={user.image || ""}
+                                src={user.image !== "" ? user.image : `${chooseRandomUserPicture()}`}
                                 alt={user.name ?? "User avatar"}
                             />
                             <AvatarFallback className="bg-primary/10 text-primary text-xs font-medium">

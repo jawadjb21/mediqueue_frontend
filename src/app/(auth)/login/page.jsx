@@ -90,11 +90,11 @@ const LoginPage = () => {
                                 id="email"
                                 type="email"
                                 placeholder="Enter your email address"
-                                {...register("email", { required: "Email is required.", validate: value => isEmail(value) || "Please enter a valid password" })}
+                                {...register("email", { required: "Email is required.", validate: value => isEmail(value) || "Please enter a valid email" })}
                             />
-                            {errors.email && (
+                            {errors?.email && (
                                 <div className="rounded-xl border text-center border-destructive/20 bg-destructive/10 text-sm text-destructive">
-                                    {errors.email.message}
+                                    {errors?.email?.message}
                                 </div>
                             )}
                         </div>
@@ -118,9 +118,14 @@ const LoginPage = () => {
                                 >
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button></div>
-                            {errors.password && (
+                            {errors?.password && (
                                 <div className="rounded-xl border text-center border-destructive/20 bg-destructive/10 text-sm text-destructive">
-                                    {errors.password.message}
+                                    {errors?.password?.message}
+                                </div>
+                            )}
+                            {errors?.root && (
+                                <div className="rounded-xl border text-center border-destructive/20 bg-destructive/10 text-sm text-destructive">
+                                    {errors.root?.message}
                                 </div>
                             )}
 

@@ -34,6 +34,8 @@ const RegisterPage = () => {
     const { register, handleSubmit, watch, formState: { errors }, setError } = useForm();
     const watchPassword = watch("password");
     const watchConfirmPassword = watch("confirmPassword");
+    const watchURL = watch("image");
+    console.log(watchURL);
 
     const handleRegister = async (data) => {
         setLoading(true);
@@ -58,10 +60,10 @@ const RegisterPage = () => {
                     message: "Passwords don't match."
                 })
             };
-            if (error.message?.toLowerCase() === "not a valid email") {
+            if (error.message?.includes("email")) {
                 setError("email", {
                     type: "manual",
-                    message: "Please enter a valid email."
+                    message: error.message
                 })
             }
             if (error.message?.toLowerCase() === "not a valid url") {
@@ -70,6 +72,7 @@ const RegisterPage = () => {
                     message: "Please enter a valid URL."
                 })
             }
+            console.log(error);
             setLoading(false);
             return;
         }
@@ -131,9 +134,9 @@ const RegisterPage = () => {
                                 id="email"
                                 type="text"
                                 placeholder="Enter your photo URL"
-                                {...register("image", { required: "Image is required.", validate: value => isURL(value) || "Please enter a valid URL" })}
+                                {...register("image", { required: false, validate: value => { if (!value) return true; return isURL(value) || "Please enter a valid URL" } })}
                             />
-                            {errors.photo && (
+                            {errors.image && (
                                 <div className="rounded-xl border text-center border-destructive/20 bg-destructive/10 text-sm text-destructive">
                                     {errors.image.message}
                                 </div>
@@ -144,7 +147,7 @@ const RegisterPage = () => {
                                 id="email"
                                 type="email"
                                 placeholder="Enter your email address"
-                                {...register("email", { required: "Email is required.", validate: value => isEmail(value) || "Please enter a valid password" })}
+                                {...register("email", { required: "Email is required.", validate: value => isEmail(value) || "Please enter a valid email" })}
                             />
                             {errors.email && (
                                 <div className="rounded-xl border text-center border-destructive/20 bg-destructive/10 text-sm text-destructive">
@@ -158,7 +161,6 @@ const RegisterPage = () => {
                                         value: 1,
                                         message: 'password is too short' // JS only: <p>error message</p> TS only support string
                                     },
-                                    validate: value => value === watchConfirmPassword || "password don't match"
                                 })} />
                                 <button
                                     type="button"
@@ -179,7 +181,7 @@ const RegisterPage = () => {
                                     id="password" placeholder="Enter your password" type={showConfirmPassword ? "text" : "password"}
                                     {...register("confirmPassword", {
                                         required: "Please type your password again.",
-                                        validate: value => value === watchPassword || "passwords dont match"
+                                        validate: value => value === watchPassword || "Passwords don't match"
                                     })} />
                                 <button
                                     type="button"
