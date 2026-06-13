@@ -27,6 +27,8 @@ import getInitials from '@/lib/getInitials';
 const ProfileDropdown = ({ user }) => {
     const router = useRouter();
 
+    console.log(user);
+
     const handleSignOut = async () => {
         await authClient.signOut({
             fetchOptions: {
@@ -48,7 +50,7 @@ const ProfileDropdown = ({ user }) => {
                                 alt={user.name ?? "User avatar"}
                             />
                             <AvatarFallback className="bg-primary/10 text-primary text-xs font-medium">
-                                {getInitials(user.name)}
+                                {initials}
                             </AvatarFallback>
                         </Avatar>
                         {/* Online indicator */}

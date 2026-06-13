@@ -131,11 +131,11 @@ const RegisterPage = () => {
                                 id="email"
                                 type="text"
                                 placeholder="Enter your photo URL"
-                                {...register("photo", { required: "Photo is required.", validate: value => isURL(value) || "Please enter a valid URL" })}
+                                {...register("image", { required: "Image is required.", validate: value => isURL(value) || "Please enter a valid URL" })}
                             />
                             {errors.photo && (
                                 <div className="rounded-xl border text-center border-destructive/20 bg-destructive/10 text-sm text-destructive">
-                                    {errors.photo.message}
+                                    {errors.image.message}
                                 </div>
                             )}
                             <Label htmlFor="email" className={"font-bold"}>Email</Label>
