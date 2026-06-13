@@ -30,11 +30,12 @@ const LoginPage = () => {
     const handleLogin = async (data) => {
         setLoading(true);
         const { email, password } = data;
+        console.log(email, password);
 
         const { data: loginData, error } = await authClient.signIn.email({
             email: email, // required
             password: password, // required
-            callbackURL: process.env.BETTER_AUTH_URL,
+            callbackURL: "/",
         });
         if (error) {
             setError("root", {
@@ -42,6 +43,7 @@ const LoginPage = () => {
                 message: "Invalid email or password"
             });
             setLoading(false);
+            console.log(error);
             return;
         }
         setLoading(false);
