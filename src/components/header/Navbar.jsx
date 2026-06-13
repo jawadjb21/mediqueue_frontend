@@ -7,10 +7,18 @@ import Logo from "@/assets/Logo.png";
 import Link from 'next/link';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Button } from '../ui/button';
-import LoginButton from './LoginButton';
+import LoginButton from './LoginButton';;
+import { headers } from "next/headers";
+import { auth } from '@/lib/auth.js';
 
+const Navbar = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    })
+    console.log("Headers", JSON.stringify(await headers()));
 
-const Navbar = () => {
+    console.log(session);
+
     return (
         <div className="navbar shadow-sm md:px-30">
             <div className="navbar-start">

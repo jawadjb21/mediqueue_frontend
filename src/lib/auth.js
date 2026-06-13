@@ -8,9 +8,19 @@ const db = client.db("mediqueue");
 export const auth = betterAuth({
     baseURL: process.env.BETTER_AUTH_URL,
     database: mongodbAdapter(db, {
-        // Optional: if you don't provide a client, database transactions won't be enabled.
         client
     }),
+    session: {
+        expiresIn: 60 * 60 * 24 * 7, // 7 days
+        updateAge: 60 * 60 * 24 // 1 day (every 1 day the session expiration is updated)
+    },
+    advanced: {
+        cookies: {
+            session_token: {
+                name: "Mediqueue_session",
+            },
+        }
+    },
     emailAndPassword: {
         enabled: true,
     },
