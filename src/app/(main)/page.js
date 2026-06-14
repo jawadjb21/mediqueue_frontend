@@ -2,6 +2,7 @@ import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/header/Navbar";
 import { headers } from "next/headers";
 import { auth } from '@/lib/auth.js';
+import Banner from "@/components/header/Banner";
 
 
 export default async function Home() {
@@ -14,6 +15,7 @@ export default async function Home() {
   return (
     <>
       <Navbar user={user}></Navbar>
+      <Banner></Banner>
       <Footer></Footer>
     </>);
 }

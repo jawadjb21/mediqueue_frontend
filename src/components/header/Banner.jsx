@@ -6,8 +6,6 @@ import { ArrowRight, BookOpen, Star, Users } from "lucide-react";
 
 const Banner = () => {
     return (<section className="relative overflow-hidden bg-background">
-
-        ```
         {/* Background Blobs */}
         <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
 
@@ -16,8 +14,6 @@ const Banner = () => {
         <div className="container mx-auto px-6 py-24">
 
             <div className="grid items-center gap-16 lg:grid-cols-2">
-
-                {/* Left Content */}
                 <div>
 
                     <div className="
@@ -67,7 +63,6 @@ const Banner = () => {
                         through a seamless booking experience.
                     </p>
 
-                    {/* CTA Buttons */}
                     <div className="mt-8 flex flex-col gap-4 sm:flex-row">
 
                         <Button
@@ -93,7 +88,6 @@ const Banner = () => {
 
                     </div>
 
-                    {/* Stats */}
                     <div className="mt-12 flex flex-wrap gap-8">
 
                         <div>
@@ -127,10 +121,8 @@ const Banner = () => {
 
                 </div>
 
-                {/* Right Content */}
                 <div className="relative">
 
-                    {/* Main Card */}
                     <div
                         className="
             rounded-3xl
@@ -142,7 +134,6 @@ const Banner = () => {
           "
                     >
 
-                        {/* Tutor Card */}
                         <div className="
             flex
             items-center
@@ -180,7 +171,6 @@ const Banner = () => {
                             </div>
                         </div>
 
-                        {/* Session */}
                         <div
                             className="
               mt-4
@@ -197,17 +187,17 @@ const Banner = () => {
                             <p className="mt-2 text-muted-foreground">
                                 Advanced Algebra
                             </p>
-
                             <Button
                                 className="mt-4 w-full"
                             >
-                                Join Session
+                                <Link href={"/bookings"} className="cursor-pointer">
+                                    Join Session
+                                </Link>
                             </Button>
                         </div>
 
                     </div>
 
-                    {/* Floating Card 1 */}
                     <div
                         className="
             absolute
@@ -232,7 +222,6 @@ const Banner = () => {
                         </p>
                     </div>
 
-                    {/* Floating Card 2 */}
                     <div
                         className="
             absolute
@@ -263,7 +252,7 @@ const Banner = () => {
 
         </div>
 
-    </section>
+    </section >
     );
 };
 
