@@ -1,5 +1,5 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
     Field,
     FieldDescription,
@@ -20,6 +20,9 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import isURL from "validator/lib/isURL";
+import FormErrors from "@/components/shared/FormErrors";
+import { isNumeric } from "validator";
 import { useForm } from "react-hook-form";
 
 const AddTutor = () => {
@@ -93,10 +96,11 @@ const AddTutor = () => {
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-name"
+                                                id="name"
                                                 placeholder="John Doe"
-                                                {...register("name", { required: "Name is required."})}
+                                                {...register("name", { required: "Name is required." })}
                                             />
+                                            <FormErrors errors={errors} field={"email"}></FormErrors>
                                         </Field>
 
                                         <Field>
@@ -105,10 +109,14 @@ const AddTutor = () => {
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-number"
+                                                id="image"
                                                 placeholder="https://www.example.com"
-                                                required
+                                                {...register("image", {
+                                                    required: false,
+                                                    validate: value => { if (!value) return true; return isURL(value); }
+                                                })}
                                             />
+                                            <FormErrors errors={errors} field={"image"}></FormErrors>
 
                                             <FieldDescription>
                                                 Enter a image URL.
@@ -119,7 +127,7 @@ const AddTutor = () => {
                                             <FieldLabel htmlFor="subject">
                                                 Subject
                                             </FieldLabel>
-                                            <Select defaultValue="">
+                                            <Select defaultValue="" {...register("subject", { required: "Please select a subject." })}>
                                                 <SelectTrigger id="subject">
                                                     <SelectValue placeholder="Subject" />
                                                 </SelectTrigger>
@@ -142,9 +150,11 @@ const AddTutor = () => {
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-number"
-                                                placeholder="https://www.example.com"
-                                                required
+                                                id="days"
+                                                placeholder="Available Days"
+                                                {...register("days", {
+                                                    required: "Please mention your available days."
+                                                })}
                                             />
                                         </Field>
 
@@ -154,22 +164,31 @@ const AddTutor = () => {
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-number"
-                                                placeholder="https://www.example.com"
-                                                required
+                                                id="fee"
+                                                placeholder="Fee"
+                                                {...register("fee", {
+                                                    required: "Please mention your fees.",
+                                                    validate: value => isNumeric(value)
+                                                })}
                                             />
+                                            <FormErrors errors={errors} field={"fee"}></FormErrors>
                                         </Field>
 
                                         <Field>
-                                            <FieldLabel htmlFor="slots">
+                                            <FieldLabel htmlFor="slot">
                                                 Total Slot
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-number"
+                                                id="slot"
                                                 placeholder="https://www.example.com"
-                                                required
+                                                {...register("slot", {
+                                                    required: "Slot Number is required.",
+                                                    validate: value => isNumeric(value),
+                                                    min: { value: 1, message: "You need to have at least 1 slot available." }
+                                                })}
                                             />
+                                            <FormErrors errors={errors} field={"slot"}></FormErrors>
                                         </Field>
 
                                         <Field>
@@ -178,7 +197,7 @@ const AddTutor = () => {
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-number"
+                                                id="start"
                                                 placeholder="https://www.example.com"
                                                 required
                                             />
@@ -190,7 +209,7 @@ const AddTutor = () => {
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-number"
+                                                id="institute"
                                                 placeholder="https://www.example.com"
                                                 required
                                             />
