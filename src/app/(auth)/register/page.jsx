@@ -35,7 +35,6 @@ const RegisterPage = () => {
     const watchPassword = watch("password");
     const watchConfirmPassword = watch("confirmPassword");
     const watchURL = watch("image");
-    console.log(watchURL);
 
     const handleRegister = async (data) => {
         setLoading(true);
@@ -72,7 +71,7 @@ const RegisterPage = () => {
                     message: "Please enter a valid URL."
                 })
             }
-            console.log(error);
+            console.error(error);
             setLoading(false);
             return;
         }
@@ -81,7 +80,6 @@ const RegisterPage = () => {
     }
 
     const handleGoogleSignIn = async () => {
-        console.log("clicked")
         const data = await authClient.signIn.social({
             provider: "google",
         });

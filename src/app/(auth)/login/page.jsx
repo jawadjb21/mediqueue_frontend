@@ -30,7 +30,6 @@ const LoginPage = () => {
     const handleLogin = async (data) => {
         setLoading(true);
         const { email, password } = data;
-        console.log(email, password);
 
         const { data: loginData, error } = await authClient.signIn.email({
             email: email, // required
@@ -43,14 +42,13 @@ const LoginPage = () => {
                 message: "Invalid email or password"
             });
             setLoading(false);
-            console.log(error);
+            console.error(error);
             return;
         }
         setLoading(false);
     };
 
     const handleGoogleSignIn = async () => {
-        console.log("clicked")
         const data = await authClient.signIn.social({
             provider: "google",
         });

@@ -28,8 +28,6 @@ import { chooseRandomUserPicture } from '@/lib/chooseUserRandomPicture';
 const ProfileDropdown = ({ user }) => {
     const router = useRouter();
 
-    console.log(user);
-
     const handleSignOut = async () => {
         await authClient.signOut({
             fetchOptions: {

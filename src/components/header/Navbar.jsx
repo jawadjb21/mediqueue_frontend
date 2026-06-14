@@ -17,7 +17,7 @@ const desktopNavItems = navItems.filter(
 
 const loginItem = navItems.find(item => item.name.toLowerCase() === "login");
 
-const Navbar = async ({ user }) => {
+const Navbar = async ({ user = null }) => {
     return (
         <div className="navbar shadow-sm px-4 md:px-10 sticky top-0 z-50 backdrop-blur-md border-b border-base-200">
 

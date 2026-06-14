@@ -6,8 +6,5 @@ const getRandomInt = (max) => {
 }
 export const chooseRandomUserPicture = () => {
     const index = getRandomInt(avatars.length);
-    console.log(index);
     return avatars[index];
 }
-
-console.log(chooseRandomUserPicture());
