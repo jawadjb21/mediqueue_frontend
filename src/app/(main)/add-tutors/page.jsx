@@ -24,8 +24,11 @@ import isURL from "validator/lib/isURL";
 import FormErrors from "@/components/shared/FormErrors";
 import { isNumeric } from "validator";
 import { useForm } from "react-hook-form";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const AddTutor = () => {
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
     const {
         register,
         handleSubmit,
@@ -100,7 +103,7 @@ const AddTutor = () => {
                                                 placeholder="John Doe"
                                                 {...register("name", { required: "Name is required." })}
                                             />
-                                            <FormErrors errors={errors} field={"email"}></FormErrors>
+                                            <FormErrors errors={errors} field={"name"}></FormErrors>
                                         </Field>
 
                                         <Field>
@@ -145,16 +148,41 @@ const AddTutor = () => {
                                         </Field>
 
                                         <Field>
-                                            <FieldLabel htmlFor="days">
+                                            <FieldLabel>
                                                 Available Days
                                             </FieldLabel>
 
-                                            <Input
-                                                id="days"
-                                                placeholder="Available Days"
-                                                {...register("days", {
-                                                    required: "Please mention your available days."
-                                                })}
+                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
+                                                {daysOfWeek.map((day) => (
+                                                    <label
+                                                        key={day}
+                                                        className="
+                                                            flex
+                                                            items-center
+                                                            gap-2
+                                                            rounded-lg
+                                                            border
+                                                            border-border
+                                                            p-3
+                                                            cursor-pointer
+                                                            hover:bg-muted
+                                                            "
+                                                    >
+                                                        <Checkbox
+                                                            value={day}
+                                                            {...register("days", {
+                                                                required: "Please select at least one day.",
+                                                            })}
+                                                        />
+
+                                                        <span>{day}</span>
+                                                    </label>
+                                                ))}
+                                            </div>
+
+                                            <FormErrors
+                                                errors={errors}
+                                                field="days"
                                             />
                                         </Field>
 
