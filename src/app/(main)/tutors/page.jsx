@@ -2,9 +2,27 @@ import { getTutors } from "@/lib/getTutors";
 import TutorCard from "@/components/tutors/TutorCard";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import PaginationBar from "@/components/tutors/PaginationBar";
 
-const AllTutorsPage = async () => {
+const TUTORS_PER_PAGE = 6;
+
+const AllTutorsPage = async ({ searchParams }) => {
     const allTutors = await getTutors();
+
+
+    const currentPage = Number(searchParams.page) || 1;
+
+    const totalPages = Math.ceil(
+        allTutors.length / TUTORS_PER_PAGE
+    );
+
+    const startIndex =
+        (currentPage - 1) * TUTORS_PER_PAGE;
+
+    const paginatedTutors = allTutors.slice(
+        startIndex,
+        startIndex + TUTORS_PER_PAGE
+    );
 
     return (
         <div className="min-h-screen bg-background">
@@ -80,6 +98,11 @@ const AllTutorsPage = async () => {
                     </div>
                 )}
             </section>
+
+            <PaginationBar
+                currentPage={currentPage}
+                totalPages={totalPages}
+            />
         </div>
     );
 };
