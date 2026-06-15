@@ -1,0 +1,25 @@
+import React from 'react';
+import Navbar from '@/components/header/Navbar';
+import Footer from "@/components/footer/Footer";
+import { headers } from "next/headers";
+import { auth } from '@/lib/auth.js';
+
+const MainLayout = async ({ children }) => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    })
+
+    const user = session?.user;
+
+    return (
+        <>
+            <Navbar user={user}></Navbar>
+            <main>
+                {children}
+            </main>
+            <Footer></Footer>
+        </>
+    );
+};
+
+export default MainLayout;
