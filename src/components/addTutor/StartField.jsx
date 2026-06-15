@@ -21,6 +21,9 @@ const StartField = ({ control, errors }) => {
             <Controller
                 name="start"
                 control={control}
+                rules={{
+                    required: "Please choose your start date."
+                }}
                 render={({ field: { value, onChange } }) => (
                     <Popover>
                         <PopoverTrigger asChild>

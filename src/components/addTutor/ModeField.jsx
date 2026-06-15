@@ -12,8 +12,10 @@ const ModeField = ({ control, errors }) => {
             </FieldLabel>
             <Controller
                 name="mode"
-                defaultValue=""
                 control={control}
+                rules={{
+                    required: "Please choose your preferred mode."
+                }}
                 render={({ field: { value, onChange } }) => (
                     <Select value={value} onValueChange={onChange}>
                         <SelectTrigger id="mode">
