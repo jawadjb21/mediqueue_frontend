@@ -6,7 +6,6 @@ export const getTutors = async () => {
             throw new Error("Server request failed!");
         }
         const response = await request.json();
-        console.log(response);
         return response;
     } catch(error){
         console.error(error);

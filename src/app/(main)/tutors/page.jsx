@@ -10,7 +10,7 @@ const AllTutorsPage = async ({ searchParams }) => {
     const allTutors = await getTutors();
 
 
-    const currentPage = Number(searchParams.page) || 1;
+    const currentPage = await Number(searchParams.page) || 1;
 
     const totalPages = Math.ceil(
         allTutors.length / TUTORS_PER_PAGE
