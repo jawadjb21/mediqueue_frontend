@@ -5,7 +5,6 @@ import {
     FieldDescription,
     FieldGroup,
     FieldLabel,
-    FieldLegend,
     FieldSeparator,
     FieldSet,
 } from "@/components/ui/field";
@@ -23,20 +22,30 @@ import Link from "next/link";
 import isURL from "validator/lib/isURL";
 import FormErrors from "@/components/shared/FormErrors";
 import { isNumeric } from "validator";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
+import { format } from "date-fns"
+import { ChevronDownIcon } from "lucide-react"
+import { Calendar } from "@/components/ui/calendar"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { useState } from "react";
+import { postTutor } from "@/lib/postTutor";
 
 const AddTutor = () => {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    
+
     const {
+        control,
         register,
         handleSubmit,
         watch,
         formState: { errors },
         setError
     } = useForm();
-
 
     return (
         <div className="relative min-h-screen overflow-hidden bg-background py-16">
@@ -83,14 +92,9 @@ const AddTutor = () => {
                             </p>
                         </div>
 
-                        <form>
+                        <form onSubmit={handleSubmit(postTutor)}>
                             <FieldGroup>
                                 <FieldSet>
-                                    <FieldLegend>Add Tutor</FieldLegend>
-
-                                    <FieldDescription>
-                                        Fill in your info and start earning!
-                                    </FieldDescription>
 
                                     <FieldGroup>
                                         <Field>
@@ -130,21 +134,37 @@ const AddTutor = () => {
                                             <FieldLabel htmlFor="subject">
                                                 Subject
                                             </FieldLabel>
-                                            <Select defaultValue="" {...register("subject", { required: "Please select a subject." })}>
-                                                <SelectTrigger id="subject">
-                                                    <SelectValue placeholder="Subject" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        <SelectItem value="Mathematics">Mathematics</SelectItem>
-                                                        <SelectItem value="Physics">Physics</SelectItem>
-                                                        <SelectItem value="Biology">Biology</SelectItem>
-                                                        <SelectItem value="Chemistry">Chemistry</SelectItem>
-                                                        <SelectItem value="Programming">Programming</SelectItem>
-                                                        <SelectItem value="English">English</SelectItem>
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
+                                            <Controller
+                                                name="subject"
+                                                control={control}
+                                                rules={{
+                                                    required: "Please choose a subject."
+                                                }}
+                                                defaultValue=""
+                                                render={({ field: { onChange, value } }) => (
+                                                    <Select value={value} onValueChange={onChange}>
+                                                        <SelectTrigger id="subject">
+                                                            <SelectValue placeholder="Subject" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectGroup>
+                                                                <SelectItem value="Mathematics">Mathematics</SelectItem>
+                                                                <SelectItem value="Physics">Physics</SelectItem>
+                                                                <SelectItem value="Biology">Biology</SelectItem>
+                                                                <SelectItem value="Chemistry">Chemistry</SelectItem>
+                                                                <SelectItem value="Programming">Programming</SelectItem>
+                                                                <SelectItem value="English">English</SelectItem>
+                                                            </SelectGroup>
+                                                        </SelectContent>
+                                                    </Select>
+
+                                                )}>
+                                            </Controller>
+
+                                            <FormErrors
+                                                errors={errors}
+                                                field="days"
+                                            />
                                         </Field>
 
                                         <Field>
@@ -152,11 +172,21 @@ const AddTutor = () => {
                                                 Available Days
                                             </FieldLabel>
 
-                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
-                                                {daysOfWeek.map((day) => (
-                                                    <label
-                                                        key={day}
-                                                        className="
+                                            <Controller
+                                                name="days"
+                                                control={control}
+                                                defaultValue={[]}
+                                                rules={{
+                                                    validate: (value) =>
+                                                        value?.length > 0 ||
+                                                        "Please select at least 1 day.",
+                                                }}
+                                                render={({ field: { onChange, value } }) => (
+                                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
+                                                        {daysOfWeek.map((day) => (
+                                                            <label
+                                                                key={day}
+                                                                className="
                                                             flex
                                                             items-center
                                                             gap-2
@@ -167,18 +197,26 @@ const AddTutor = () => {
                                                             cursor-pointer
                                                             hover:bg-muted
                                                             "
-                                                    >
-                                                        <Checkbox
-                                                            value={day}
-                                                            {...register("days", {
-                                                                required: "Please select at least one day.",
-                                                            })}
-                                                        />
-
-                                                        <span>{day}</span>
-                                                    </label>
-                                                ))}
-                                            </div>
+                                                            >
+                                                                <Checkbox
+                                                                    checked={value.includes(day)}
+                                                                    onCheckedChange={(checked) => {
+                                                                        if (checked) {
+                                                                            onChange([
+                                                                                ...value, day
+                                                                            ]);
+                                                                        } else {
+                                                                            onChange(
+                                                                                value.filter(d => d !== day)
+                                                                            );
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                <span>{day}</span>
+                                                            </label>
+                                                        ))}
+                                                    </div>
+                                                )} />
 
                                             <FormErrors
                                                 errors={errors}
@@ -209,7 +247,7 @@ const AddTutor = () => {
 
                                             <Input
                                                 id="slot"
-                                                placeholder="https://www.example.com"
+                                                placeholder="Your total available slots."
                                                 {...register("slot", {
                                                     required: "Slot Number is required.",
                                                     validate: value => isNumeric(value),
@@ -223,12 +261,32 @@ const AddTutor = () => {
                                             <FieldLabel htmlFor="start">
                                                 Start Date
                                             </FieldLabel>
-
-                                            <Input
-                                                id="start"
-                                                placeholder="https://www.example.com"
-                                                required
-                                            />
+                                            <Controller
+                                                name="start"
+                                                control={control}
+                                                render={({ field: { value, onChange } }) => (
+                                                    <Popover>
+                                                        <PopoverTrigger asChild>
+                                                            <Button
+                                                                variant="outline"
+                                                                data-empty={!value}
+                                                                className="w-53 justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
+                                                            >
+                                                                {value ? format(value, "PPP") : <span>Pick a date</span>}
+                                                                <ChevronDownIcon />
+                                                            </Button>
+                                                        </PopoverTrigger>
+                                                        <PopoverContent className="w-auto p-0" align="start">
+                                                            <Calendar
+                                                                mode="single"
+                                                                selected={value}
+                                                                onSelect={onChange}
+                                                                defaultMonth={value}
+                                                            />
+                                                        </PopoverContent>
+                                                    </Popover>
+                                                )} />
+                                            <FormErrors errors={errors} field={"start"}></FormErrors>
                                         </Field>
 
                                         <Field>
@@ -238,9 +296,17 @@ const AddTutor = () => {
 
                                             <Input
                                                 id="institute"
-                                                placeholder="https://www.example.com"
-                                                required
+                                                placeholder=""
+                                                {...register("institute", {
+                                                    required: "Please mention your current institute.",
+                                                    // i is for case-insensitive flag
+                                                    pattern: {
+                                                        value: /^[A-Z ]+$/i,
+                                                        message: "Only alphabets and spaces are allowed."
+                                                    }
+                                                })}
                                             />
+                                            <FormErrors errors={errors} field={"institute"}></FormErrors>
                                         </Field>
 
                                         <Field>
@@ -249,29 +315,39 @@ const AddTutor = () => {
                                             </FieldLabel>
 
                                             <Input
-                                                id="card-number"
-                                                placeholder="https://www.example.com"
-                                                required
+                                                id="location"
+                                                placeholder="Your location."
+                                                {...register("location", {
+                                                    required: "Please mention your location."
+                                                })}
                                             />
+                                            <FormErrors errors={errors} field={"location"}></FormErrors>
                                         </Field>
 
                                         <Field>
                                             <FieldLabel htmlFor="mode">
                                                 Teaching Mode
                                             </FieldLabel>
-
-                                            <Select defaultValue="">
-                                                <SelectTrigger id="mode">
-                                                    <SelectValue placeholder="Mode" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        <SelectItem value="Offline">Offline</SelectItem>
-                                                        <SelectItem value="Online">Online</SelectItem>
-                                                        <SelectItem value="Both">Both</SelectItem>
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
+                                            <Controller
+                                                name="mode"
+                                                defaultValue=""
+                                                control={control}
+                                                render={({ field: { value, onChange } }) => (
+                                                    <Select value={value} onValueChange={onChange}>
+                                                        <SelectTrigger id="mode">
+                                                            <SelectValue placeholder="Mode" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectGroup>
+                                                                <SelectItem value="Offline">Offline</SelectItem>
+                                                                <SelectItem value="Online">Online</SelectItem>
+                                                                <SelectItem value="Both">Both</SelectItem>
+                                                            </SelectGroup>
+                                                        </SelectContent>
+                                                    </Select>
+                                                )}
+                                            />
+                                            <FormErrors errors={errors} field={"mode"}></FormErrors>
                                         </Field>
 
                                     </FieldGroup>
