@@ -24,6 +24,10 @@ import fields from "@/data/tutorFieldItems.json"
 
 const AddTutor = ({ postTutor }) => {
 
+    const componentsMap = {
+        NameField, ImageField, SubjectField, DaysField, FeeField, SlotField, StartField, InstituteField, LocationField, ModeField
+    };
+
     const {
         control,
         register,
@@ -32,6 +36,8 @@ const AddTutor = ({ postTutor }) => {
         formState: { errors },
         setError
     } = useForm();
+
+    const availableProps = { control, errors, register };
 
     return (
         <div className="relative min-h-screen overflow-hidden bg-background py-16">
@@ -83,25 +89,28 @@ const AddTutor = ({ postTutor }) => {
                                 <FieldSet>
 
                                     <FieldGroup>
-                                        <NameField errors={errors} register={register} ></NameField>
+                                        {
+                                            fields.map(field => {
+                                                {/* 
+                                                    React can't render fields from array or object contents like <object.component> 
+                                                    So, dynamically render them by storing the components inside an array, and accessing them
+                                                    on demand.
+                                                */}
+                                                const Component = componentsMap[field.component];
 
-                                        <ImageField errors={errors} register={register}></ImageField>
+                                                {/* As JSON can't store funcs, get them dynamically */ }
+                                                const componentProps = {};
 
-                                        <SubjectField control={control} errors={errors} ></SubjectField>
+                                                field.props.forEach((propName) => {
+                                                    componentProps[propName] = availableProps[propName];
+                                                });
 
-                                        <DaysField control={control} errors={errors}></DaysField>
-
-                                        <FeeField errors={errors} register={register}></FeeField>
-
-                                        <SlotField errors={errors} register={register}></SlotField>
-
-                                        <StartField control={control} errors={errors}></StartField>
-
-                                        <InstituteField errors={errors} register={register}></InstituteField>
-
-                                        <LocationField errors={errors} register={register}></LocationField>
-
-                                        <ModeField control={control} errors={errors}></ModeField>
+                                                {/* Now render the component and also destructure the props as arguments dynamically. */ }
+                                                return (
+                                                    <Component key={field.id} {...componentProps}></Component>
+                                                );
+                                            })
+                                        }
                                     </FieldGroup>
                                 </FieldSet>
 

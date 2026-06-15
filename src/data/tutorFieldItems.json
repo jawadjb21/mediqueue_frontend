@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "component": "NameField",
+        "props": [
+            "errors",
+            "register"
+        ]
+    },
+    {
+        "id": 2,
+        "component": "ImageField",
+        "props": [
+            "errors",
+            "register"
+        ]
+    },
+    {
+        "id": 3,
+        "component": "SubjectField",
+        "props": [
+            "control",
+            "errors"
+        ]
+    },
+    {
+        "id": 4,
+        "component": "DaysField",
+        "props": [
+            "control",
+            "errors"
+        ]
+    },
+    {
+        "id": 5,
+        "component": "FeeField",
+        "props": [
+            "errors",
+            "register"
+        ]
+    },
+    {
+        "id": 6,
+        "component": "SlotField",
+        "props": [
+            "errors",
+            "register"
+        ]
+    },
+    {
+        "id": 7,
+        "component": "StartField",
+        "props": [
+            "control",
+            "errors"
+        ]
+    },
+    {
+        "id": 8,
+        "component": "InstituteField",
+        "props": [
+            "errors",
+            "register"
+        ]
+    },
+    {
+        "id": 9,
+        "component": "LocationField",
+        "props": [
+            "errors",
+            "register"
+        ]
+    },
+    {
+        "id": 10,
+        "component": "ModeField",
+        "props": [
+            "control",
+            "register"
+        ]
+    }
+]
