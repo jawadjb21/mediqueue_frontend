@@ -4,9 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const postBooking = async (formData) => {
-    let redirectPath = null;
     if (!formData) {
-        console.error(error);
         return "No valid data found";
     }
     try {
@@ -23,15 +21,13 @@ export const postBooking = async (formData) => {
         const response = await request.json();
         if (!response.acknowledged) {
             throw new Error("Couldn't add booking to database!");
-        }
-        redirectPath = `/tutors/${formData?.tutorId}`;
+        };
+        return response;
     } catch (error) {
         console.error(error);
         return "Failed to book a session!";
     } finally {
         revalidatePath("/bookings");
-        if (redirectPath) {
-            redirect(`/tutors/${formData?.tutorId}`);
-        }
+        redirect("/tutors");
     }
 }
