@@ -30,14 +30,16 @@ export function BookingDialog({ tutor, postBooking }) {
         formState: { errors },
         setError
     } = useForm();
-    /**
-     * MAKE A UPDATE SLOT FUNCTION WITH BOOK/CANCEL PARAMS TO KNOW WHICH ACTION TO DO
-     * MAKE THIS A FORM
-     * CALL BOOK FUNC ON THIS AND CALL SLOT UPDATE FUNCTION INSIDE THAT
-     */
+
     return (
         <Dialog>
-            <form onSubmit={handleSubmit(postBooking)}>
+            <form onSubmit={handleSubmit(data => {
+                postBooking({
+                    ...data,
+                    tutorId: tutor._id,
+                    userId: user.id,
+                });
+            })}>
                 <DialogTrigger asChild>
                     <Button size="lg">Book a session</Button>
                 </DialogTrigger>
@@ -50,7 +52,6 @@ export function BookingDialog({ tutor, postBooking }) {
                         </DialogDescription>
                     </DialogHeader>
                     <FieldGroup>
-                        {/* Editable Fields */}
 
                         <Field>
                             <Label htmlFor="studentName">
@@ -59,6 +60,7 @@ export function BookingDialog({ tutor, postBooking }) {
 
                             <Input
                                 id="studentName"
+                                autoFocus
                                 placeholder="Enter your full name"
                                 {...register("studentName", {
                                     required: "Student name is required.",
@@ -80,6 +82,23 @@ export function BookingDialog({ tutor, postBooking }) {
                                 })}
                             />
                         </Field>
+                        
+                        <Field>
+                            <Label>Your Email</Label>
+
+                            <Input
+                                value={user?.email}
+                                readOnly
+                                className="bg-muted text-muted-foreground"
+                            />
+
+                            <Input
+                                type="hidden"
+                                {...register("studentEmail")}
+                                value={user?.email}
+                            />
+                        </Field>
+
 
                         {/* Tutor Information */}
 
@@ -89,16 +108,6 @@ export function BookingDialog({ tutor, postBooking }) {
                             </h3>
 
                             <div className="space-y-3">
-                                <Field>
-                                    {/** Hide this field but track it for form submission */}
-                                    <Input
-                                        type="hidden"
-                                        {...register("tutorId")}
-                                        value={tutor._id}
-                                    />
-
-                                </Field>
-
                                 <Field>
                                     <Label>Tutor Name</Label>
 
@@ -117,22 +126,6 @@ export function BookingDialog({ tutor, postBooking }) {
                                         value={tutor.name}
                                     />
                                 </Field>
-
-                                <Field>
-                                    <Label>Your Email</Label>
-
-                                    <Input
-                                        value={user?.email}
-                                        readOnly
-                                        className="bg-muted text-muted-foreground"
-                                    />
-
-                                    <Input
-                                        type="hidden"
-                                        {...register("studentEmail")}
-                                        value={user?.email}
-                                    />
-                                </Field>
                             </div>
                         </div>
                     </FieldGroup>
@@ -140,7 +133,7 @@ export function BookingDialog({ tutor, postBooking }) {
                         <DialogClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DialogClose>
-                        <Button type="submit">Save changes</Button>
+                        <Button type="submit">Book Session</Button>
                     </DialogFooter>
                 </DialogContent>
             </form>
