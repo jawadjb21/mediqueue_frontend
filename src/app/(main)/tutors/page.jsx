@@ -7,10 +7,11 @@ import PaginationBar from "@/components/tutors/PaginationBar";
 const TUTORS_PER_PAGE = 6;
 
 const AllTutorsPage = async ({ searchParams }) => {
+    const {page} = await searchParams;
+
     const allTutors = await getTutors();
 
-
-    const currentPage = await Number(searchParams.page) || 1;
+    const currentPage = Number(page) || 1;
 
     const totalPages = Math.ceil(
         allTutors.length / TUTORS_PER_PAGE
