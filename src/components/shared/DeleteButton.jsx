@@ -1,12 +1,58 @@
-import React from 'react';
-import { Button } from '../ui/button';
-import { Trash2Icon } from 'lucide-react';
+"use client";
 
-const DeleteButton = () => {
+import { Trash2Icon } from "lucide-react";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogMedia,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+
+const DeleteButton = ({ deleteTutor, tutor }) => {
     return (
-        <Button variant='destructive' className={"bg-red-300"}>
-            <Trash2Icon className="h-4 w-4 shrink-0" />
-        </Button>
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button variant="destructive">
+                    <Trash2Icon />
+                </Button>
+            </AlertDialogTrigger>
+
+            <AlertDialogContent size="sm">
+                <AlertDialogHeader>
+                    <AlertDialogMedia className="bg-destructive/10 text-destructive">
+                        <Trash2Icon />
+                    </AlertDialogMedia>
+
+                    <AlertDialogTitle>
+                        Are you completely sure?
+                    </AlertDialogTitle>
+
+                    <AlertDialogDescription>
+                        This action cannot be undone.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+
+                <AlertDialogFooter>
+                    <AlertDialogCancel variant="outline">
+                        Cancel
+                    </AlertDialogCancel>
+
+                    <AlertDialogAction
+                        variant="destructive"
+                        onClick={() => {deleteTutor(tutor._id)}}
+                    >
+                        Delete
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     );
 };
 

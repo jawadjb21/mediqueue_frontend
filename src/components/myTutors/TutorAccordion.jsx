@@ -17,6 +17,7 @@ import {
 import Image from "next/image";
 import UpdateTutorDialog from "./UpdateTutorDialog";
 import DeleteButton from "../shared/DeleteButton";
+import { deleteTutor } from "@/lib/deleteTutor";
 
 const TutorAccordion = ({ myTutors }) => {
   return (
@@ -195,7 +196,7 @@ const TutorAccordion = ({ myTutors }) => {
 
               <div className="mt-6 flex justify-end">
                 <UpdateTutorDialog tutor={tutor} />
-                <DeleteButton />
+                <DeleteButton deleteTutor={deleteTutor} tutor={tutor} />
               </div>
             </AccordionContent>
           </AccordionItem>
