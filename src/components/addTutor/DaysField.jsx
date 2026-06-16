@@ -23,7 +23,7 @@ const DaysField = ({ errors, control }) => {
                         "Please select at least 1 day.",
                 }}
                 render={({ field: { onChange, value } }) => (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mt-2">
                         {daysOfWeek.map((day) => (
                             <label
                                 key={day}
@@ -34,7 +34,8 @@ const DaysField = ({ errors, control }) => {
                                                             rounded-lg
                                                             border
                                                             border-border
-                                                            p-3
+                                                            py-3
+                                                            px-1
                                                             cursor-pointer
                                                             hover:bg-muted
                                                             "
