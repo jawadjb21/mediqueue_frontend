@@ -10,7 +10,7 @@ export const updateSlot = async (tutorId, slot = 0) => {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ slot: slot }),
+      body: JSON.stringify({ slot: Number(slot) }),
     });
     if (!request.ok) {
       throw new Error("Server request failed!");
