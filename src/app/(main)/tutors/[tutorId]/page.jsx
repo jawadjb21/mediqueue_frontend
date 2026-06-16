@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { BookingDialog } from "@/components/tutors/BookingDialog";
 import { postBooking } from "@/lib/postBooking";
+import NoSlotAvailable from "@/components/tutors/NoSlotAvailable";
 
 const TutorDetailsPage = async ({ params }) => {
     const { tutorId } = await params;
@@ -111,7 +112,12 @@ const TutorDetailsPage = async ({ params }) => {
                             </div>
 
                             <div className="mt-8 flex flex-wrap gap-4">
-                                <BookingDialog tutor={tutor} postBooking={postBooking} />
+                                {
+                                    tutor.slot > 0 ?
+                                        <BookingDialog tutor={tutor} postBooking={postBooking} />
+                                        : <NoSlotAvailable />
+
+                                }
 
                                 <Button
                                     size="lg"

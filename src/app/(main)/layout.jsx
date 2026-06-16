@@ -3,6 +3,7 @@ import Navbar from '@/components/header/Navbar';
 import Footer from "@/components/footer/Footer";
 import { headers } from "next/headers";
 import { auth } from '@/lib/auth.js';
+import { Toaster } from "@/components/ui/sonner"
 
 const MainLayout = async ({ children }) => {
     const session = await auth.api.getSession({
@@ -17,6 +18,7 @@ const MainLayout = async ({ children }) => {
             <main>
                 {children}
             </main>
+            <Toaster/>
             <Footer></Footer>
         </>
     );
