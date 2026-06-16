@@ -1,17 +1,10 @@
-import { authClient } from '@/lib/auth-client';
-import { getMyTutors } from '@/lib/getMyTutors';
+import MyTutorsPage from '@/components/myTutors/MyTutors';
 import React from 'react';
 
-const page = async () => {
-    const { data: session } = authClient.useSession();
-
-    const user = session?.user;
-
-    const myTutors = await getMyTutors(user.id);
-
+const page = () => {
     return (
         <div>
-
+            <MyTutorsPage></MyTutorsPage>
         </div>
     );
 };
