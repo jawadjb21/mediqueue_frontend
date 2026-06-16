@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import UpdateTutorDialog from "./UpdateTutorDialog";
+import DeleteButton from "../shared/DeleteButton";
 
 const TutorAccordion = ({ myTutors }) => {
   return (
@@ -194,6 +195,7 @@ const TutorAccordion = ({ myTutors }) => {
 
               <div className="mt-6 flex justify-end">
                 <UpdateTutorDialog tutor={tutor} />
+                <DeleteButton />
               </div>
             </AccordionContent>
           </AccordionItem>
