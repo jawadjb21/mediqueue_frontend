@@ -16,7 +16,7 @@ const FeeField = ({ register, errors }) => {
                 placeholder="Fee"
                 {...register("fee", {
                     required: "Please mention your fees.",
-                    validate: value => isNumeric(value)
+                    validate: value => { return isNumeric(value) || "Please enter a number only." }
                 })}
             />
             <FormErrors errors={errors} field={"fee"}></FormErrors>

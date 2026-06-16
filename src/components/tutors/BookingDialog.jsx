@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "react-hook-form"
 import { isMobilePhone } from "validator";
+import FormErrors from "../shared/FormErrors";
 
 export function BookingDialog({ tutor, postBooking }) {
     const { data: session } = authClient.useSession();
@@ -33,22 +34,22 @@ export function BookingDialog({ tutor, postBooking }) {
 
     return (
         <Dialog>
-            <form onSubmit={handleSubmit(data => {
-                postBooking({
-                    ...data,
-                    tutorId: tutor._id,
-                    userId: user.id,
-                });
-            })}>
-                <DialogTrigger asChild>
-                    <Button size="lg">Book a session</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-sm">
+
+            <DialogTrigger asChild>
+                <Button size="lg">Book a session</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-sm">
+                <form onSubmit={handleSubmit(data => {
+                    postBooking({
+                        ...data,
+                        tutorId: tutor._id,
+                        userId: user.id,
+                    });
+                })}>
                     <DialogHeader>
-                        <DialogTitle>Edit profile</DialogTitle>
+                        <DialogTitle>Book your session</DialogTitle>
                         <DialogDescription>
-                            Make changes to your profile here. Click save when you&apos;re
-                            done.
+                            Fill out your info and book a session
                         </DialogDescription>
                     </DialogHeader>
                     <FieldGroup>
@@ -66,6 +67,7 @@ export function BookingDialog({ tutor, postBooking }) {
                                     required: "Student name is required.",
                                 })}
                             />
+                            <FormErrors errors={errors} field={"studentName"}></FormErrors>
                         </Field>
 
                         <Field>
@@ -78,11 +80,12 @@ export function BookingDialog({ tutor, postBooking }) {
                                 placeholder="+1 234 567 890"
                                 {...register("phone", {
                                     required: "Phone number is required.",
-                                    validate: (value) => isMobilePhone(value),
+                                    validate: value => { return isMobilePhone(value) || "Please enter a valid phone number."}
                                 })}
                             />
+                            <FormErrors errors={errors} field={"phone"}></FormErrors>
                         </Field>
-                        
+
                         <Field>
                             <Label>Your Email</Label>
 
@@ -135,8 +138,9 @@ export function BookingDialog({ tutor, postBooking }) {
                         </DialogClose>
                         <Button type="submit">Book Session</Button>
                     </DialogFooter>
-                </DialogContent>
-            </form>
-        </Dialog>
+                </form>
+            </DialogContent>
+
+        </Dialog >
     )
 }

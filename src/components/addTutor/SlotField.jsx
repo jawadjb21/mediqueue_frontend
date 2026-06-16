@@ -16,7 +16,7 @@ const SlotField = ({ register, errors }) => {
                 placeholder="Your total available slots."
                 {...register("slot", {
                     required: "Slot Number is required.",
-                    validate: value => isNumeric(value),
+                    validate: value => { return isNumeric(value) || "Please enter a number only."},
                     min: { value: 1, message: "You need to have at least 1 slot available." }
                 })}
             />

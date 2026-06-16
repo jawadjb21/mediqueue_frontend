@@ -16,7 +16,7 @@ const ImageField = ({ register, errors }) => {
                 placeholder="https://www.example.com"
                 {...register("image", {
                     required: false,
-                    validate: value => { if (!value) return true; return isURL(value); }
+                    validate: value => { if (!value) return true; return isURL(value) || "Please enter a valid URL." }
                 })}
             />
             <FormErrors errors={errors} field={"image"}></FormErrors>
