@@ -25,6 +25,8 @@ import {
     Monitor,
     DollarSign,
 } from "lucide-react";
+import { BookingDialog } from "@/components/tutors/BookingDialog";
+import { postBooking } from "@/lib/postBooking";
 
 const TutorDetailsPage = async ({ params }) => {
     const { tutorId } = await params;
@@ -109,9 +111,7 @@ const TutorDetailsPage = async ({ params }) => {
                             </div>
 
                             <div className="mt-8 flex flex-wrap gap-4">
-                                <Button size="lg">
-                                    Book Session
-                                </Button>
+                                <BookingDialog tutor={tutor} postBooking={postBooking} />
 
                                 <Button
                                     size="lg"
