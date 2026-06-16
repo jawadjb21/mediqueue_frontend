@@ -90,7 +90,7 @@ export function BookingDialog({ tutor, postBooking }) {
                             <Label>Your Email</Label>
 
                             <Input
-                                value={user?.email}
+                                value={user?.email || ""}
                                 readOnly
                                 className="bg-muted text-muted-foreground"
                             />
@@ -115,7 +115,7 @@ export function BookingDialog({ tutor, postBooking }) {
                                     <Label>Tutor Name</Label>
 
                                     <Input
-                                        value={tutor.name}
+                                        value={tutor?.name || ""}
                                         readOnly
                                         className="bg-muted text-muted-foreground"
                                     />
