@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { updateSlot } from "./updateSlot";
 
 export const postBooking = async (formData) => {
     if (!formData) {
@@ -22,7 +23,10 @@ export const postBooking = async (formData) => {
         if (!response.acknowledged) {
             throw new Error("Couldn't add booking to database!");
         };
-        return response;
+        const update = await updateSlot(formData?.tutorId, "-1");
+        if (update.ok) {
+            return response;
+        }
     } catch (error) {
         console.error(error);
         return "Failed to book a session!";
