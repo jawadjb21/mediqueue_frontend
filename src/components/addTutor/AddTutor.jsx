@@ -20,9 +20,13 @@ import InstituteField from "./InstituteField";
 import LocationField from "./LocationField";
 import ModeField from "./ModeField";
 import fields from "@/data/tutorFieldItems.json"
+import { authClient } from "@/lib/auth-client";
 
 
 const AddTutor = ({ postTutor }) => {
+    const { data: session } = authClient.useSession();
+
+    const user = session?.user;
 
     const componentsMap = {
         NameField, ImageField, SubjectField, DaysField, FeeField, SlotField, StartField, InstituteField, LocationField, ModeField
@@ -84,7 +88,12 @@ const AddTutor = ({ postTutor }) => {
                             </p>
                         </div>
 
-                        <form onSubmit={handleSubmit(postTutor)}>
+                        <form onSubmit={handleSubmit(data => {
+                            postTutor({
+                                ...data,
+                                userId: user.id,
+                            })
+                        })}>
                             <FieldGroup>
                                 <FieldSet>
 
