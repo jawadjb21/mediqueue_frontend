@@ -5,20 +5,22 @@ import Bookings from "./Bookings";
 import NoBookings from "./NoBookings";
 
 const MyBookings = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers()
-    });
-    const user = session?.user;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const user = session?.user;
 
-    const myBookings = await getBookings(user?.id);
+  const myBookings = await getBookings(user?.id);
 
-    return <>
-        {myBookings.length > 0 ? (
-            <Bookings myBookings={myBookings}></Bookings>
-        ) : (
-            <NoBookings></NoBookings>
-        )}
+  return (
+    <>
+      {myBookings.length > 0 ? (
+        <Bookings myBookings={myBookings}></Bookings>
+      ) : (
+        <NoBookings></NoBookings>
+      )}
     </>
+  );
 };
 
-export default MyBookings
+export default MyBookings;

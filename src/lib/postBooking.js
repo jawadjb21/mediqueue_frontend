@@ -8,14 +8,15 @@ export const postBooking = async (formData) => {
   if (!formData) {
     return "No valid data found";
   }
-  const { studentName, phone, tutorName, studentEmail, tutorId, userId } = formData;
+  const { studentName, phone, tutorName, studentEmail, tutorId, userId } =
+    formData;
   const data = {
-    "studentName": studentName.trim(),
-    "phone": phone,
-    "tutorName": tutorName.trim(),
-    "studentEmail": studentEmail.trim(),
+    studentName: studentName.trim(),
+    phone: phone,
+    tutorName: tutorName.trim(),
+    studentEmail: studentEmail.trim(),
     tutorId,
-    userId
+    userId,
   };
   try {
     const request = await fetch(`${process.env.SERVER_URL}/bookings`, {

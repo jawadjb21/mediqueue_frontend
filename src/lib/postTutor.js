@@ -4,17 +4,29 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const postTutor = async (formData) => {
-  const { name, image, subject, days, fee, slot, start, location, institute, mode, userId } = formData;
-  const data = {
-    "name": name.trim(),
-    "image": image.trim(),
+  const {
+    name,
+    image,
     subject,
     days,
-    "fee": Number(fee.trim()),
-    "slot": Number(slot.trim()),
+    fee,
+    slot,
     start,
-    "location": location.trim(),
-    "institute": institute.trim(),
+    location,
+    institute,
+    mode,
+    userId,
+  } = formData;
+  const data = {
+    name: name.trim(),
+    image: image.trim(),
+    subject,
+    days,
+    fee: Number(fee.trim()),
+    slot: Number(slot.trim()),
+    start,
+    location: location.trim(),
+    institute: institute.trim(),
     mode,
     userId,
   };
