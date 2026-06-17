@@ -21,7 +21,12 @@ export const updateTutor = async (formData) => {
       throw new Error("Server request failed!");
     }
     const response = await request.json();
-    console.log(response);
+    if(response){
+        return {
+            "ok": true,
+            "message": `Updated ${formData.name}'s details.`
+        }
+    }
   } catch (error) {
     console.error(error);
     return "Couldn't update tutor.";

@@ -14,8 +14,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const DeleteButton = ({ deleteTutor, tutor }) => {
+  const router = useRouter();
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -42,8 +45,18 @@ const DeleteButton = ({ deleteTutor, tutor }) => {
 
           <AlertDialogAction
             variant="destructive"
-            onClick={() => {
-              deleteTutor(tutor._id);
+            onClick={async () => {
+              const result = await deleteTutor(tutor);
+              if (result.ok) {
+                toast.success(result.message, {
+                  position: "top-center",
+                  action: {
+                    label: "Okay",
+                    onClick: () => console.log("Deleted Tutor"),
+                  }
+                })
+                router.push("/my-tutors");
+              };
             }}
           >
             Delete
