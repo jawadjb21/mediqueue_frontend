@@ -22,7 +22,6 @@ import LocationField from "./LocationField";
 import ModeField from "./ModeField";
 import fields from "@/data/tutorFieldItems.json";
 import { authClient } from "@/lib/auth-client";
-import { router } from "better-auth/api";
 import { useRouter } from "next/navigation";
 
 const AddTutor = ({ postTutor }) => {

@@ -35,13 +35,15 @@ export const postBooking = async (formData) => {
     }
     const update = await updateSlot(formData?.tutorId, "-1");
     if (update.ok) {
-      return response;
+      return {
+        "ok":true,
+        "message": `Booked a session with ${tutorName}`
+      }
     }
   } catch (error) {
     console.error(error);
     return "Failed to book a session!";
   } finally {
     revalidatePath("/bookings");
-    redirect("/tutors");
   }
 };

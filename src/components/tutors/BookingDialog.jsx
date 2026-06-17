@@ -17,8 +17,12 @@ import { authClient } from "@/lib/auth-client";
 import { useForm } from "react-hook-form";
 import { isMobilePhone } from "validator";
 import FormErrors from "../shared/FormErrors";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function BookingDialog({ tutor, postBooking }) {
+  const router = useRouter();
+  
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
@@ -39,12 +43,23 @@ export function BookingDialog({ tutor, postBooking }) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-sm">
         <form
-          onSubmit={handleSubmit((data) => {
-            postBooking({
+          onSubmit={handleSubmit(async (data) => {
+            const result = await postBooking({
               ...data,
               tutorId: tutor._id,
               userId: user.id,
             });
+            if (result.ok) {
+              toast.success(result.message, {
+                position: "top-center",
+                action: {
+                  label: "Okay",
+                  onClick: () => console.log("Okay"),
+                },
+              });
+              router.push("/tutors");
+              router.refresh();
+            }
           })}
         >
           <DialogHeader>
