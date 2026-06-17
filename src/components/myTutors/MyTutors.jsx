@@ -13,7 +13,7 @@ const MyTutorsPage = async () => {
   const user = session?.user;
 
   const myTutors = await getMyTutors(user.id);
-  console.log(myTutors);
+
   return (
     <>
       {myTutors.length > 0 ? (

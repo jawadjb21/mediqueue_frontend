@@ -1,6 +1,5 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export const updateTutor = async (formData) => {
   if (!formData) {
@@ -21,7 +20,7 @@ export const updateTutor = async (formData) => {
       throw new Error("Server request failed!");
     }
     const response = await request.json();
-    if(response){
+    if(response.acknowledged){
         return {
             "ok": true,
             "message": `Updated ${formData.name}'s details.`
@@ -33,6 +32,5 @@ export const updateTutor = async (formData) => {
   } finally {
     revalidatePath("/tutors");
     revalidatePath("/my-tutors");
-    redirect("/my-tutors");
   }
 };

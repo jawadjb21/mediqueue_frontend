@@ -26,8 +26,12 @@ import ModeField from "../addTutor/ModeField";
 import fields from "@/data/tutorFieldItems.json";
 import Link from "next/link";
 import { updateTutor } from "@/lib/updateTutor";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const UpdateTutorDialog = ({ tutor }) => {
+  const router = useRouter();
+
   const componentsMap = {
     NameField,
     ImageField,
@@ -83,13 +87,23 @@ const UpdateTutorDialog = ({ tutor }) => {
         </DialogHeader>
         <div className="no-scrollbar max-h-[50vh] overflow-y-auto px-4">
           <form
-            onSubmit={handleSubmit((data) => {
-              updateTutor({
+            onSubmit={handleSubmit(async (data) => {
+              const result = await updateTutor({
                 ...data,
                 tutorId: tutor._id,
                 // As this is hitting same endpoint as updateSlot, use flag to indicate whole update or only slot(booking, cancelling).
                 updateAll: true,
               });
+              if(result.ok){
+                toast.success(result.message, {
+                  position: "top-center",
+                  action: {
+                    label: "Okay",
+                    onClick: () => {console.log("Updated Tutor Info.")}
+                  }
+                });
+                router.push("/my-tutors");
+              }
             })}
           >
             <FieldGroup>
