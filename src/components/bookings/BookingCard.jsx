@@ -1,5 +1,8 @@
 import { GraduationCap, Mail, Phone, User } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
+import DeleteButton from '../shared/DeleteButton';
+import DeleteBooking from './DeleteBooking';
+import { deleteBooking } from '@/lib/deleteBooking';
 
 const BookingCard = ({ booking }) => {
     return (
@@ -130,21 +133,30 @@ const BookingCard = ({ booking }) => {
 
                 {/* Footer */}
                 <div className="mt-6 flex items-center justify-between border-t pt-4">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground">
-                        Booking Request
-                    </span>
 
-                    <GraduationCap
-                        className="
-                    h-5
-                    w-5
-                    text-primary
-                    transition-transform
-                    group-hover:scale-110
-                "
-                    />
+                    <div className="flex items-center gap-2">
+                        <span className="text-xs uppercase tracking-wide text-muted-foreground">
+                            Booking Request
+                        </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+
+                        <DeleteBooking deleteBooking={deleteBooking} bookingId={booking._id}
+                        />
+
+                        <GraduationCap
+                            className="
+                h-5
+                w-5
+                text-primary
+                transition-transform
+                group-hover:scale-110
+            "
+                        />
+                    </div>
+
                 </div>
-
             </CardContent>
         </Card>
     );
