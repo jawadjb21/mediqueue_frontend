@@ -102,7 +102,7 @@ const AddTutor = ({ postTutor }) => {
                     position: "top-center",
                     action: {
                       label: "Okay",
-                      onClick: () => console.log("Added"),
+                      onClick: () => console.log("Added Tutor"),
                     },
                   });
                   router.push("/")

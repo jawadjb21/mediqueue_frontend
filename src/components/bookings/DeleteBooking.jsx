@@ -14,6 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const DeleteBooking = ({ deleteBooking, booking }) => {
   return (
@@ -42,8 +43,17 @@ const DeleteBooking = ({ deleteBooking, booking }) => {
 
           <AlertDialogAction
             variant="destructive"
-            onClick={() => {
-              deleteBooking(booking);
+            onClick={async () => {
+              const result = await deleteBooking(booking);
+              if (result.ok) {
+                toast.success(result.message, {
+                  position: "top-center",
+                  action: {
+                    label: "Okay",
+                    onClick: () => console.log("Deleted Booking"),
+                  },
+                });
+              }
             }}
           >
             Delete
