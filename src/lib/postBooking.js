@@ -36,9 +36,9 @@ export const postBooking = async (formData) => {
     const update = await updateSlot(formData?.tutorId, "-1");
     if (update.ok) {
       return {
-        "ok":true,
-        "message": `Booked a session with ${tutorName}`
-      }
+        ok: true,
+        message: `Booked a session with ${tutorName}`,
+      };
     }
   } catch (error) {
     console.error(error);

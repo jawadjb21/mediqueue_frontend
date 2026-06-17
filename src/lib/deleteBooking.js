@@ -17,9 +17,9 @@ export const deleteBooking = async (booking) => {
     const update = await updateSlot(booking.tutorId, "1");
     if (update.ok) {
       return {
-        "ok": true,
-        "message": `Deleted session with ${booking.tutorName}`,
-      }
+        ok: true,
+        message: `Deleted session with ${booking.tutorName}`,
+      };
     }
   } catch (error) {
     console.error(error);

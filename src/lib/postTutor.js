@@ -47,9 +47,9 @@ export const postTutor = async (formData) => {
       throw new Error("Database insertion failed!");
     } else {
       return {
-        "ok": true,
-        "message": `Succesfully added ${name} to Tutor list`,
-      }
+        ok: true,
+        message: `Succesfully added ${name} to Tutor list`,
+      };
     }
   } catch (error) {
     console.error(error);

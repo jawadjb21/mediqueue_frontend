@@ -53,10 +53,10 @@ const DeleteButton = ({ deleteTutor, tutor }) => {
                   action: {
                     label: "Okay",
                     onClick: () => console.log("Deleted Tutor"),
-                  }
-                })
+                  },
+                });
                 router.push("/my-tutors");
-              };
+              }
             }}
           >
             Delete

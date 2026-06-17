@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 
 export function BookingDialog({ tutor, postBooking }) {
   const router = useRouter();
-  
+
   const { data: session } = authClient.useSession();
 
   const user = session?.user;

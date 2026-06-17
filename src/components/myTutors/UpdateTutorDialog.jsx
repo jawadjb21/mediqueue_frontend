@@ -94,13 +94,15 @@ const UpdateTutorDialog = ({ tutor }) => {
                 // As this is hitting same endpoint as updateSlot, use flag to indicate whole update or only slot(booking, cancelling).
                 updateAll: true,
               });
-              if(result.ok){
+              if (result.ok) {
                 toast.success(result.message, {
                   position: "top-center",
                   action: {
                     label: "Okay",
-                    onClick: () => {console.log("Updated Tutor Info.")}
-                  }
+                    onClick: () => {
+                      console.log("Updated Tutor Info.");
+                    },
+                  },
                 });
                 router.push("/my-tutors");
               }

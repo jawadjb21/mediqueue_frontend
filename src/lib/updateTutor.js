@@ -20,11 +20,11 @@ export const updateTutor = async (formData) => {
       throw new Error("Server request failed!");
     }
     const response = await request.json();
-    if(response.acknowledged){
-        return {
-            "ok": true,
-            "message": `Updated ${formData.name}'s details.`
-        }
+    if (response.acknowledged) {
+      return {
+        ok: true,
+        message: `Updated ${formData.name}'s details.`,
+      };
     }
   } catch (error) {
     console.error(error);

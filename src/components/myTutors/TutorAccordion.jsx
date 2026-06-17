@@ -21,7 +21,7 @@ import { deleteTutor } from "@/lib/deleteTutor";
 
 const TutorAccordion = ({ myTutors }) => {
   return (
-    <div className="container mx-auto max-w-5xl py-10 min-h-screen">
+    <div className="container mx-auto max-w-5xl px-4 py-6 sm:py-10 min-h-screen">
       <div className="mb-8 place-items-center md:place-items-start">
         <h1 className="text-4xl font-bold">My Tutors</h1>
 
@@ -38,8 +38,21 @@ const TutorAccordion = ({ myTutors }) => {
             className="overflow-hidden rounded-2xl border bg-card px-6 shadow-sm"
           >
             <AccordionTrigger className="hover:no-underline py-5">
-              <div className="flex w-full items-center gap-5 text-left">
-                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border shadow-sm">
+              <div className="flex w-full flex-col gap-4 text-left sm:flex-row sm:items-center">
+                <div
+                  className="
+                      relative
+                      mx-auto
+                      h-24
+                      w-24
+                      shrink-0
+                      overflow-hidden
+                      rounded-2xl
+                      border
+                      shadow-sm
+                      sm:mx-0
+                    "
+                >
                   <Image
                     src={tutor.image}
                     alt={tutor.name}
@@ -49,12 +62,12 @@ const TutorAccordion = ({ myTutors }) => {
                   />
                 </div>
 
-                <div className="flex-1">
+                <div className="flex-1 text-center sm:text-left">
                   <h2 className="mt-3 text-3xl font-bold text-primary tracking-tight">
                     {tutor.name}
                   </h2>
 
-                  <div className="mt-3 flex flex-wrap gap-3">
+                  <div className="mt-3 flex flex-wrap justify-center gap-3 sm:justify-start">
                     <div
                       className="
                         inline-flex
@@ -77,14 +90,19 @@ const TutorAccordion = ({ myTutors }) => {
 
                 <div
                   className="
-                rounded-2xl
-                border
-                bg-primary/5
-                px-5
-                py-3
-                text-center
-                shadow-xs
-            "
+                    mx-auto
+                    w-full
+                    max-w-45
+                    rounded-2xl
+                    border
+                    bg-primary/5
+                    px-5
+                    py-3
+                    text-center
+                    shadow-xs
+                    sm:mx-0
+                    sm:w-auto
+                  "
                 >
                   <div className="flex items-center justify-center gap-1 text-primary">
                     <DollarSign className="h-4 w-4" />
@@ -102,7 +120,7 @@ const TutorAccordion = ({ myTutors }) => {
             </AccordionTrigger>
 
             <AccordionContent>
-              <div className="mt- 6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="rounded-xl border bg-muted/30 p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <GraduationCap className="h-4 w-4" />
@@ -174,7 +192,7 @@ const TutorAccordion = ({ myTutors }) => {
                   Available Days
                 </p>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap justify-center gap-2 sm:justify-start">
                   {tutor.days?.map((day) => (
                     <span
                       key={day}
@@ -194,9 +212,26 @@ const TutorAccordion = ({ myTutors }) => {
                 </div>
               </div>
 
-              <div className="mt-6 flex justify-end">
-                <UpdateTutorDialog tutor={tutor} />
-                <DeleteButton deleteTutor={deleteTutor} tutor={tutor} />
+              <div
+                className="
+                  mt-6
+                  flex
+                  flex-col
+                  gap-3
+                  sm:flex-row
+                  sm:justify-end
+                "
+              >
+                <UpdateTutorDialog
+                  tutor={tutor}
+                  className="w-full sm:w-auto"
+                />
+
+                <DeleteButton
+                  deleteTutor={deleteTutor}
+                  tutor={tutor}
+                  className="w-full sm:w-auto"
+                />
               </div>
             </AccordionContent>
           </AccordionItem>

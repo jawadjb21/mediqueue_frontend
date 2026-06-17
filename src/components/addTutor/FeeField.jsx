@@ -17,7 +17,7 @@ const FeeField = ({ register, errors }) => {
           validate: (value) => {
             // validator only checks on strings. Add tutor submits strings, and validation passes. But, in backend, it's stored
             // as Number. On edit form(Update Tutor), it's now submitted as Number(from database). SO, validation fails on Update.
-            // So, convert to String to pass validation. 
+            // So, convert to String to pass validation.
             return isNumeric(String(value)) || "Please enter a number only.";
           },
         })}
