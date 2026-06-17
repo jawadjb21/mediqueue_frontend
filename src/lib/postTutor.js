@@ -45,12 +45,16 @@ export const postTutor = async (formData) => {
     const response = await request.json();
     if (!response.acknowledged) {
       throw new Error("Database insertion failed!");
+    } else {
+      return {
+        "ok": true,
+        "message": `Succesfully added ${name} to Tutor list`,
+      }
     }
   } catch (error) {
     console.error(error);
     return null;
   } finally {
     revalidatePath("/tutors");
-    redirect("/");
   }
 };
