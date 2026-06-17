@@ -142,7 +142,7 @@ const BookingCard = ({ booking }) => {
 
                     <div className="flex items-center gap-2">
 
-                        <DeleteBooking deleteBooking={deleteBooking} bookingId={booking._id}
+                        <DeleteBooking deleteBooking={deleteBooking} booking={booking}
                         />
 
                         <GraduationCap

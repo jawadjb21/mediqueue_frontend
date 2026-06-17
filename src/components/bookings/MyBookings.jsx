@@ -10,8 +10,6 @@ const MyBookings = async () => {
     });
     const user = session?.user;
 
-    console.log(user);
-
     const myBookings = await getBookings(user?.id);
 
     return <>

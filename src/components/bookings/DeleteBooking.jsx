@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 
-const DeleteBooking = ({ deleteBooking, bookingId }) => {
+const DeleteBooking = ({ deleteBooking, booking }) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -46,7 +46,7 @@ const DeleteBooking = ({ deleteBooking, bookingId }) => {
 
                     <AlertDialogAction
                         variant="destructive"
-                        onClick={() => { deleteBooking(bookingId) }}
+                        onClick={() => { deleteBooking(booking) }}
                     >
                         Delete
                     </AlertDialogAction>
