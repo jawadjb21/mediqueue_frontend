@@ -57,7 +57,7 @@ export function BookingDialog({ tutor, postBooking }) {
                   onClick: () => console.log("Okay"),
                 },
               });
-              router.push("/tutors");
+              router.push("/bookings");
               router.refresh();
             }
           })}

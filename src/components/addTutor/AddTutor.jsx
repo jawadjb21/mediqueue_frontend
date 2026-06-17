@@ -105,7 +105,7 @@ const AddTutor = ({ postTutor }) => {
                       onClick: () => console.log("Added Tutor"),
                     },
                   });
-                  router.push("/");
+                  router.push("/tutors");
                   router.refresh();
                 }
               })}
