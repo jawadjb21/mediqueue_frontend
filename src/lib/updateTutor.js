@@ -21,7 +21,8 @@ export const updateTutor = async (formData) => {
       throw new Error("Server request failed!");
     }
     const response = await request.json();
-    if(response){
+    console.log(response);
+    if(response.acknowledged){
         return {
             "ok": true,
             "message": `Updated ${formData.name}'s details.`
@@ -33,6 +34,5 @@ export const updateTutor = async (formData) => {
   } finally {
     revalidatePath("/tutors");
     revalidatePath("/my-tutors");
-    redirect("/my-tutors");
   }
 };
