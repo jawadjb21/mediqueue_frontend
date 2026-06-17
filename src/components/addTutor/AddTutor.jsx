@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner"
 import {
   Field,
   FieldGroup,
@@ -21,8 +22,12 @@ import LocationField from "./LocationField";
 import ModeField from "./ModeField";
 import fields from "@/data/tutorFieldItems.json";
 import { authClient } from "@/lib/auth-client";
+import { router } from "better-auth/api";
+import { useRouter } from "next/navigation";
 
 const AddTutor = ({ postTutor }) => {
+  const router = useRouter();
+
   const { data: session } = authClient.useSession();
 
   const user = session?.user;
@@ -88,11 +93,22 @@ const AddTutor = ({ postTutor }) => {
             </div>
 
             <form
-              onSubmit={handleSubmit((data) => {
-                postTutor({
+              onSubmit={handleSubmit(async (data) => {
+                const result = await postTutor({
                   ...data,
                   userId: user.id,
                 });
+                if (result.ok) {
+                  toast.success(result.message, {
+                    position: "top-center",
+                    action: {
+                      label: "Okay",
+                      onClick: () => console.log("Added"),
+                    },
+                  });
+                  router.push("/")
+                  router.refresh();
+                }
               })}
             >
               <FieldGroup>
