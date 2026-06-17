@@ -15,7 +15,7 @@ const SlotField = ({ register, errors }) => {
         {...register("slot", {
           required: "Slot Number is required.",
           validate: (value) => {
-            return isNumeric(value) || "Please enter a number only.";
+            return isNumeric(String(value)) || "Please enter a number only.";
           },
           min: {
             value: 1,
