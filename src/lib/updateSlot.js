@@ -1,5 +1,5 @@
 "use server";
-export const updateSlot = async (tutorId, slot = 0) => {
+export const updateSlot = async (tutorId, slot = 0, token) => {
   if (!tutorId) {
     return "No tutor found!";
   }
@@ -9,6 +9,7 @@ export const updateSlot = async (tutorId, slot = 0) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
+        "authorization": `Bearer ${token.token}`
       },
       body: JSON.stringify({ slot: Number(slot) }),
     });

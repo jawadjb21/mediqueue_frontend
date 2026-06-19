@@ -1,13 +1,19 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { updateSlot } from "./updateSlot";
+import { auth } from "./auth";
+import { headers } from "next/headers";
 
 export const postBooking = async (formData) => {
   if (!formData) {
     return "No valid data found";
-  }
+  };
+
+  const token = await auth.api.getToken({
+    headers: await headers()
+  });
+
   const { studentName, phone, tutorName, studentEmail, tutorId, userId } =
     formData;
   const data = {
@@ -23,6 +29,7 @@ export const postBooking = async (formData) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        "authorization": `Bearer ${token.token}`
       },
       body: JSON.stringify(data),
     });
@@ -33,7 +40,7 @@ export const postBooking = async (formData) => {
     if (!response.acknowledged) {
       throw new Error("Couldn't add booking to database!");
     }
-    const update = await updateSlot(formData?.tutorId, "-1");
+    const update = await updateSlot(formData?.tutorId, "-1", token);
     if (update.ok) {
       return {
         ok: true,

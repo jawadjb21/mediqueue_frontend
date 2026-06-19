@@ -1,9 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { auth } from "./auth";
 
 export const postTutor = async (formData) => {
+  const token = await auth.api.getToken({
+    headers: await headers(),
+  })
+
+  console.log("TOKEN:", token);
+
   const {
     name,
     image,
@@ -36,13 +43,19 @@ export const postTutor = async (formData) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        "authorization": `Bearer ${token.token}`,
       },
       body: JSON.stringify(data),
     });
     if (!request.ok) {
       throw new Error("Server request failed!");
     }
+    console.log("STATUS:", request.status);
+
     const response = await request.json();
+
+    console.log("RESPONSE:", response);
+
     if (!response.acknowledged) {
       throw new Error("Database insertion failed!");
     } else {

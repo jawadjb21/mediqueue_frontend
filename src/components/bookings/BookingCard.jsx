@@ -1,6 +1,5 @@
 import { GraduationCap, Mail, Phone, User } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import DeleteButton from "../shared/DeleteButton";
 import DeleteBooking from "./DeleteBooking";
 import { deleteBooking } from "@/lib/deleteBooking";
 

@@ -1,14 +1,21 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { auth } from "./auth";
+import { headers } from "next/headers";
 
 export const deleteTutor = async (tutor) => {
+  const token = await auth.api.getToken({
+    headers: await headers(),
+  });
   try {
     const request = await fetch(
       `${process.env.SERVER_URL}/tutors/${tutor._id}`,
       {
         method: "DELETE",
+        headers: {
+          "authorization": `BEARER ${token.token}`
+        }
       },
     );
     if (!request.ok) {

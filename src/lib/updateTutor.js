@@ -1,7 +1,12 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { auth } from "./auth";
+import { headers } from "next/headers";
 
 export const updateTutor = async (formData) => {
+  const token = await auth.api.getToken({
+    headers: await headers(),
+  })
   if (!formData) {
     return "No tutor found!";
   }
@@ -12,6 +17,7 @@ export const updateTutor = async (formData) => {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
+          "authorization": `BEARER ${token.token}`
         },
         body: JSON.stringify(formData),
       },
