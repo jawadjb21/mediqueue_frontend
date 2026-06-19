@@ -71,7 +71,7 @@ const Banner = () => {
               </Button>
 
               <Button asChild variant="outline" size="lg">
-                <Link href="/about">Learn More</Link>
+                <Link href="#">Learn More</Link>
               </Button>
             </div>
 
