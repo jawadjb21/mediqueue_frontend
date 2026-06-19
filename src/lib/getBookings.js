@@ -18,7 +18,7 @@ export const getBookings = async (userId) => {
       },
     );
     if (!request.ok) {
-      throw new Error("Server request failed!");
+      throw new Error("Booking server request failed.");
     }
     const response = await request.json();
 

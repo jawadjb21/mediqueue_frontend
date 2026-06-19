@@ -7,7 +7,7 @@ export const getTutors = async () => {
       },
     });
     if (!request.ok) {
-      throw new Error("Server request failed!");
+      throw new Error("All tutors server request failed!");
     }
     const response = await request.json();
     return response;

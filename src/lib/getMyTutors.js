@@ -24,7 +24,7 @@ export const getMyTutors = async (userId) => {
       },
     );
     if (!request.ok) {
-      throw new Error("Server request failed!");
+      throw new Error("My tutors server request failed!");
     }
     const response = await request.json();
     return response;
