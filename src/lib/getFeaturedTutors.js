@@ -2,7 +2,7 @@
 
 export const getFeaturedTutors = async () => {
   try {
-    const request = await fetch(`${process.env.SERVER_URL}/featured-tutors`, {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured-tutors`, {
       next: {
         revalidate: 60,
       },

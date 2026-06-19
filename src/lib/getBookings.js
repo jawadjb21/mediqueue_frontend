@@ -10,7 +10,7 @@ export const getBookings = async (userId) => {
 
   try {
     const request = await fetch(
-      `${process.env.SERVER_URL}/bookings/${userId}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${userId}`,
       {
         headers: {
           authorization: `BEARER ${token.token}`,

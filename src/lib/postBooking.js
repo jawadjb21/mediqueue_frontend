@@ -25,7 +25,7 @@ export const postBooking = async (formData) => {
     userId,
   };
   try {
-    const request = await fetch(`${process.env.SERVER_URL}/bookings`, {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

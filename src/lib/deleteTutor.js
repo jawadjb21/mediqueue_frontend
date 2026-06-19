@@ -10,7 +10,7 @@ export const deleteTutor = async (tutor) => {
   });
   try {
     const request = await fetch(
-      `${process.env.SERVER_URL}/tutors/${tutor._id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${tutor._id}`,
       {
         method: "DELETE",
         headers: {
