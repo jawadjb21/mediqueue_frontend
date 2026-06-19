@@ -13,7 +13,7 @@ export const getMyTutors = async (userId) => {
   }
   try {
     const request = await fetch(
-      `${process.env.SERVER_URL}/myTutors/${userId}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/myTutors/${userId}`,
       {
         next: {
           revalidate: 60,

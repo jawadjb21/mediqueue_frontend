@@ -12,7 +12,7 @@ export const updateTutor = async (formData) => {
   }
   try {
     const request = await fetch(
-      `${process.env.SERVER_URL}/tutors/${formData?.tutorId}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${formData?.tutorId}`,
       {
         method: "PATCH",
         headers: {

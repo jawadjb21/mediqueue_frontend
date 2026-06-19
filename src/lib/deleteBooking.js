@@ -10,7 +10,7 @@ export const deleteBooking = async (booking) => {
   });
   try {
     const request = await fetch(
-      `${process.env.SERVER_URL}/bookings/${booking._id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${booking._id}`,
       {
         method: "DELETE",
         headers: {

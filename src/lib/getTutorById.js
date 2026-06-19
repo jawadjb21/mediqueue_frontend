@@ -9,7 +9,7 @@ export const getTutorById = async (tutorId) => {
   });
 
   try {
-    const request = await fetch(`${process.env.SERVER_URL}/tutors/${tutorId}`, {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${tutorId}`, {
       headers: {
         authorization: `BEARER ${token.token}`,
       },

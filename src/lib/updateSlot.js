@@ -5,7 +5,7 @@ export const updateSlot = async (tutorId, slot = 0, token) => {
   }
 
   try {
-    const request = await fetch(`${process.env.SERVER_URL}/tutors/${tutorId}`, {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${tutorId}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",

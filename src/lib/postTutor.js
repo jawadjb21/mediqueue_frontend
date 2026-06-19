@@ -39,7 +39,7 @@ export const postTutor = async (formData) => {
   };
 
   try {
-    const request = await fetch(`${process.env.SERVER_URL}/add-tutors`, {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/add-tutors`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
