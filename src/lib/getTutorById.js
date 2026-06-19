@@ -5,14 +5,14 @@ import { auth } from "./auth";
 
 export const getTutorById = async (tutorId) => {
   const token = await auth.api.getToken({
-    headers: await headers()
+    headers: await headers(),
   });
 
   try {
     const request = await fetch(`${process.env.SERVER_URL}/tutors/${tutorId}`, {
       headers: {
-        authorization: `BEARER ${token.token}`
-      }
+        authorization: `BEARER ${token.token}`,
+      },
     });
     if (!request.ok) {
       throw new Error("Server request failed!");

@@ -14,8 +14,8 @@ export const deleteBooking = async (booking) => {
       {
         method: "DELETE",
         headers: {
-          "authorization": `BEARER ${token.token}`,
-        }
+          authorization: `BEARER ${token.token}`,
+        },
       },
     );
     if (!request.ok) {

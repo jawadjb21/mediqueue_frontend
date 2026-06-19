@@ -7,7 +7,7 @@ import { auth } from "./auth";
 export const postTutor = async (formData) => {
   const token = await auth.api.getToken({
     headers: await headers(),
-  })
+  });
 
   console.log("TOKEN:", token);
 
@@ -43,7 +43,7 @@ export const postTutor = async (formData) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        "authorization": `Bearer ${token.token}`,
+        authorization: `Bearer ${token.token}`,
       },
       body: JSON.stringify(data),
     });

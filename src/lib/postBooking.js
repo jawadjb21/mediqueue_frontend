@@ -8,10 +8,10 @@ import { headers } from "next/headers";
 export const postBooking = async (formData) => {
   if (!formData) {
     return "No valid data found";
-  };
+  }
 
   const token = await auth.api.getToken({
-    headers: await headers()
+    headers: await headers(),
   });
 
   const { studentName, phone, tutorName, studentEmail, tutorId, userId } =
@@ -29,7 +29,7 @@ export const postBooking = async (formData) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        "authorization": `Bearer ${token.token}`
+        authorization: `Bearer ${token.token}`,
       },
       body: JSON.stringify(data),
     });

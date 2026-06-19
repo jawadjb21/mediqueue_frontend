@@ -85,7 +85,7 @@ const AllTutorsPage = async ({ searchParams }) => {
                             xl:grid-cols-4
                         "
           >
-            {allTutors.map((tutor) => (
+            {paginatedTutors.map((tutor) => (
               <TutorCard key={tutor._id} tutor={tutor} />
             ))}
           </div>

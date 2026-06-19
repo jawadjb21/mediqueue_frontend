@@ -9,7 +9,7 @@ export const updateSlot = async (tutorId, slot = 0, token) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        "authorization": `Bearer ${token.token}`
+        authorization: `Bearer ${token.token}`,
       },
       body: JSON.stringify({ slot: Number(slot) }),
     });

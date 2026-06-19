@@ -1,7 +1,8 @@
 "use server";
-export const getTutors = async () => {
+
+export const getFeaturedTutors = async () => {
   try {
-    const request = await fetch(`${process.env.SERVER_URL}/tutors`, {
+    const request = await fetch(`${process.env.SERVER_URL}/featured-tutors`, {
       next: {
         revalidate: 60,
       },
@@ -13,6 +14,6 @@ export const getTutors = async () => {
     return response;
   } catch (error) {
     console.error(error);
-    return "No tutor found!";
+    return "Couldn't find tutor";
   }
 };

@@ -9,11 +9,14 @@ export const getBookings = async (userId) => {
   });
 
   try {
-    const request = await fetch(`${process.env.SERVER_URL}/bookings/${userId}`, {
-      headers: {
-        authorization: `BEARER ${token.token}`
-      }
-    });
+    const request = await fetch(
+      `${process.env.SERVER_URL}/bookings/${userId}`,
+      {
+        headers: {
+          authorization: `BEARER ${token.token}`,
+        },
+      },
+    );
     if (!request.ok) {
       throw new Error("Server request failed!");
     }

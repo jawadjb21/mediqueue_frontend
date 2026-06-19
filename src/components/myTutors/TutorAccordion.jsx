@@ -222,10 +222,7 @@ const TutorAccordion = ({ myTutors }) => {
                   sm:justify-end
                 "
               >
-                <UpdateTutorDialog
-                  tutor={tutor}
-                  className="w-full sm:w-auto"
-                />
+                <UpdateTutorDialog tutor={tutor} className="w-full sm:w-auto" />
 
                 <DeleteButton
                   deleteTutor={deleteTutor}
